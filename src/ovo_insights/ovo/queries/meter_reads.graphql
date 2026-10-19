@@ -1,0 +1,52 @@
+# Meters, registers and meter reads for one account (ported from My-Ovo-Data v1.0.9).
+query MeterReads_nextV1($accountId: ID!, $query: MeterReadsInputV2!) {
+  account(id: $accountId) {
+    id
+    accountSupplyPoints {
+      startDate
+      end {
+        date
+      }
+      supplyPoint {
+        sprn
+        fuelType
+        meterTechnicalDetails {
+          type
+          meterSerialNumber
+          status
+          registers {
+            registerId
+            timingCategory
+            numberOfDigits
+            unitMeasurement
+            registerStartDate
+            registerEndDate
+          }
+        }
+      }
+      meterReads_nextV1(query: $query, last: 10000) {
+        edges {
+          node {
+            reading {
+              type
+              date
+              lifecycle
+              source
+              meterSerialNumber
+              ... on ElectricityMeterRead_nextV2 {
+                registers {
+                  registerId
+                  timingCategory
+                  value
+                }
+              }
+              ... on GasMeterRead_nextV2 {
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

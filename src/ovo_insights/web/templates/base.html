@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="htmx-config" content='{"includeIndicatorStyles": false, "allowEval": false, "allowScriptTags": false, "selfRequestsOnly": true}'>
+<title>{% block title %}{% endblock %} · ovo-insights</title>
+<link rel="stylesheet" href="/static/app.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<script src="/static/vendor/htmx-2.0.11.min.js" defer></script>
+{% block scripts %}{% endblock %}
+</head>
+<body hx-headers='{{ {"X-CSRF-Token": csrf_token} | tojson }}'>
+<header>
+  <div class="bar">
+    <span class="brand">ovo-insights</span>
+    <nav>
+      {% for href, label in nav %}
+      <a href="{{ href }}"{% if href == path %} aria-current="page"{% endif %}>{{ label }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+<main>
+{% if demo %}<p class="notice warn">Demo mode: this is made-up data, not yours. Logging in and syncing are switched off.</p>{% endif %}
+{% block content %}{% endblock %}
+</main>
+<footer>
+  Unofficial — not affiliated with or endorsed by OVO Energy.
+  ovo-insights {{ version }}.
+</footer>
+</body>
+</html>

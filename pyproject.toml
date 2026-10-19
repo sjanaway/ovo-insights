@@ -1,0 +1,85 @@
+[project]
+name = "ovo-insights"
+version = "0.1.0"
+description = "Unofficial, local-only web app for archiving and analysing your OVO Energy smart-meter data."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Steve Janaway", email = "1956946+sjanaway@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+classifiers = [
+    "Private :: Do Not Upload",
+]
+# Runtime dependencies are restricted to the allowlist in tests/test_dependency_policy.py.
+dependencies = [
+    "fastapi>=0.143.0",
+    "httpx>=0.28.1",
+    "jinja2>=3.1.6",
+    "keyring>=25.7.0",
+    "platformdirs>=4.13.0",
+    "pydantic>=2.14.1",
+    "typer>=0.27.3",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+ovo-insights = "ovo_insights.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.169.0",
+    "mypy>=2.4.0",
+    "pip-audit>=2.10.1",
+    "pre-commit>=4.7.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "respx>=0.23.1",
+    "ruff>=0.17.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "SIM", "RUF", "DTZ", "PT", "ASYNC"]
+
+[tool.ruff.lint.per-file-ignores]
+# assert is the pytest idiom; subprocess in tests runs our own CLI; tests use fake secrets.
+"tests/**" = ["S101", "S105", "S106", "S603"]
+
+[tool.mypy]
+strict = true
+python_version = "3.13"
+files = ["src", "tests"]
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--cov=ovo_insights",
+    "--cov-branch",
+    "--cov-report=term-missing",
+]
+testpaths = ["tests"]
+pythonpath = ["."]
+xfail_strict = true
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["ovo_insights"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = false
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]

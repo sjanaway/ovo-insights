@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Tariffs{% endblock %}
+{% block scripts %}{% include "_charts_js.html" %}{% endblock %}
+{% block content %}
+<h1>Tariffs</h1>
+<p class="muted">Enter a tariff and see what your actual usage would have cost under it, next to what OVO charged. Rates are inc. VAT.</p>
+
+{% if form %}
+<div class="card">
+  {% include "_tariff_form.html" %}
+</div>
+{% else %}
+<div class="card">
+  <h2>Your tariffs</h2>
+  {% if tariffs %}
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Name</th><th scope="col">Fuel</th><th scope="col">Rates</th><th scope="col">Standing</th><th scope="col">Applies</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+    <tbody>
+    {% for t in tariffs %}
+      <tr>
+        <td>{{ t.name }}</td>
+        <td>{{ t.fuel.value | capitalize }}</td>
+        <td>{{ describe_rates(t) }}</td>
+        <td>{{ pence_text(t.standing_charge) }}p/day</td>
+        <td>{{ describe_dates(t) }}</td>
+        <td class="row-actions">
+          <a href="/tariffs?edit={{ t.tariff_id }}">Edit</a>
+          <button type="button" class="secondary small" hx-post="/tariffs/{{ t.tariff_id }}/delete" hx-confirm="Delete the tariff {{ t.name }}?">Delete</button>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <p class="muted">No tariffs yet. Add one to start comparing.</p>
+  {% endif %}
+  <div id="tariff-result" aria-live="polite"></div>
+  <p class="add-links"><strong>Add a tariff:</strong>
+    {% for key, (label, fuel, _rows) in templates.items() %}
+    <a href="/tariffs?new={{ key }}">{{ label }}{% if key not in ("flat", "gas") %} (example){% endif %}</a>
+    {% endfor %}
+  </p>
+</div>
+
+{% include "_range.html" %}
+{% if not views %}
+<div class="card"><p>Add a tariff to compare it with what you actually paid.</p></div>
+{% endif %}
+{% for view in views %}
+{% set result = view.comparison %}
+<section class="fuel">
+  <h2>{{ view.fuel.value | capitalize }}</h2>
+  {% if result.included %}
+  <p class="muted">Compared over {{ result.included | length }} of {{ result.days_considered }} days. Every figure covers the same days, so they can be compared.</p>
+  {% else %}
+  <div class="notice warn">No day in this range can be costed by all of these tariffs, so there is nothing to compare. Try other dates, or see the reasons below.</div>
+  {% endif %}
+  {% if view.excluded %}
+  <div class="notice warn">
+    <strong>{{ result.excluded | length }} day{{ "s" if result.excluded | length != 1 }} left out of every figure</strong> so the comparison stays like for like:
+    <ul>{% for reason, count in view.excluded %}<li>{{ count }}: {{ reason }}</li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+  {% if result.included %}
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Tariff</th><th scope="col">Usage</th><th scope="col">Standing charge</th><th scope="col">Total</th><th scope="col">Against what OVO charged</th></tr></thead>
+    <tbody>
+      <tr class="actual"><th scope="row">What OVO charged</th><td>{{ result.actual.usage | money }}</td><td>{{ result.actual.standing | money }}</td><td><strong>{{ result.actual.total | money }}</strong></td><td class="muted">baseline</td></tr>
+      {% for column in result.columns %}
+      <tr>
+        <th scope="row">{{ column.name }}</th>
+        <td>{{ column.totals.usage | money }}</td>
+        <td>{{ column.totals.standing | money }}</td>
+        <td><strong>{{ column.totals.total | money }}</strong></td>
+        <td class="{{ 'saving' if column.difference < 0 else 'extra' if column.difference > 0 else '' }}">{{ column.difference | signed_money }}{% if column.difference_percent is not none %} ({{ "{:+.1f}".format(column.difference_percent) }}%){% endif %}{% if column.difference < 0 %} cheaper{% elif column.difference > 0 %} dearer{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <div class="chart" data-chart="tariffs" data-src="/api/charts/tariffs?fuel={{ view.fuel.value }}&amp;{{ query }}" role="img" aria-label="{{ view.fuel.value | capitalize }} total cost by tariff"></div>
+  <h3>Month by month</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th scope="col">Month</th><th scope="col">What OVO charged</th>{% for column in result.columns %}<th scope="col">{{ column.name }}</th>{% endfor %}</tr></thead>
+    <tbody>
+    {% for month, amount in result.actual.by_month.items() %}
+      <tr>
+        <th scope="row">{{ month.strftime("%b %Y") }}</th>
+        <td>{{ amount | money }}</td>
+        {% for column in result.columns %}<td>{{ column.totals.by_month.get(month, 0) | money }}</td>{% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">Months can be partial: only days every figure can cost are counted.</p>
+  {% endif %}
+</section>
+{% endfor %}
+{% endif %}
+{% endblock %}

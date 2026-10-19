@@ -1,0 +1,49 @@
+name: Bug report
+description: Something doesn't work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before you post anything, read this.** Never paste your OVO password, a token or
+        cookie, a log line you haven't read, an account number, MPAN/MPRN, meter serial,
+        address, or screenshots of your real data. Redact first (replace with `XXXX`).
+        See the "No real data in git" rules in CONTRIBUTING.md. The app's own output is
+        designed to contain counts only, but check it.
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `ovo-insights doctor`
+      description: If this is about syncing, logging in or anything that talks to OVO. It prints counts only; check it before pasting.
+      render: text
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The command you ran, or the page and what you clicked. `ovo-insights demo` uses made-up data; if it happens there too, say so.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `ovo-insights --version`.
+      placeholder: ovo-insights 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: macOS version and how you installed it
+      placeholder: macOS 15.1, uv tool install
+  - type: checkboxes
+    id: redacted
+    attributes:
+      label: Privacy check
+      options:
+        - label: I have removed passwords, tokens, cookies, account numbers, MPAN/MPRN, meter serials and addresses from everything above.
+          required: true

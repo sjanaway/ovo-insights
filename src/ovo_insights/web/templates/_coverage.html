@@ -1,0 +1,28 @@
+{% for account in accounts %}
+<div class="card">
+  <h2>Account {{ account.number }}{% if account.first_supply %} <span class="muted">(supply since {{ account.first_supply }})</span>{% endif %}</h2>
+  {% if account.coverage %}
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Data</th><th>From</th><th>To</th><th>Final</th><th>Provisional</th><th>Known gaps</th><th>To retry</th></tr></thead>
+    <tbody>
+    {% for cov in account.coverage %}
+      <tr>
+        <td>{{ cov.granularity.value.replace("_", "-") }}</td>
+        <td>{{ cov.earliest or "—" }}</td>
+        <td>{{ cov.latest or "—" }}</td>
+        <td>{{ cov.complete }}</td>
+        <td>{{ cov.provisional }}</td>
+        <td>{{ cov.gaps }}</td>
+        <td>{{ cov.pending }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">From and To are the first and last days of data held, however long ago it was downloaded. The other columns count the sync's periods.</p>
+  {% else %}
+  <p class="muted">No usage data in the last two years.</p>
+  {% endif %}
+</div>
+{% endfor %}

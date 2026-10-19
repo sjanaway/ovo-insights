@@ -1,0 +1,6 @@
+{"data": {"customer_nextV1": {"id": "11111111-2222-3333-4444-555555555555", "customerAccountRelationships": {"edges": [
+  {"node": {"account": {"id": "7654321", "accountSupplyPoints": [
+    {"startDate": "2022-03-15", "supplyPoint": {"fuelType": "ELECTRICITY", "sprn": "1900000000000"}},
+    {"startDate": "2022-03-15", "supplyPoint": {"fuelType": "GAS", "sprn": "9876543"}}
+  ]}}}
+]}}}}

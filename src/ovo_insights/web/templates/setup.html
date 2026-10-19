@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Setup{% endblock %}
+{% block content %}
+<h1>Setup</h1>
+<div class="card">
+  {% if has_login %}<p class="notice ok">A login is saved. Saving another replaces it.</p>{% endif %}
+  <p>Your OVO email and password are checked with OVO, then saved in the macOS Keychain. They are never written to a file or shown again.</p>
+  <form class="stack" hx-post="/setup" hx-target="#setup-result" hx-swap="innerHTML" autocomplete="off">
+    <label>OVO email <input type="email" name="email" required autocomplete="username"></label>
+    <label>OVO password <input type="password" name="password" required autocomplete="current-password"></label>
+    <button type="submit">Check and save</button>
+  </form>
+  <div id="setup-result" aria-live="polite"></div>
+</div>
+{% endblock %}

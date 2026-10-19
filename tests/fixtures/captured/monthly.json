@@ -1,0 +1,214 @@
+{
+  "electricity": {
+    "data": [
+      {
+        "consumption": 304.70,
+        "cost": {
+          "amount": "66.12",
+          "currencyUnit": "GBP"
+        },
+        "month": 1,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 213.23,
+        "cost": {
+          "amount": "46.27",
+          "currencyUnit": "GBP"
+        },
+        "month": 2,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 183.97,
+        "cost": {
+          "amount": "39.92",
+          "currencyUnit": "GBP"
+        },
+        "month": 3,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 267.65,
+        "cost": {
+          "amount": "58.08",
+          "currencyUnit": "GBP"
+        },
+        "month": 4,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 283.60,
+        "cost": {
+          "amount": "61.54",
+          "currencyUnit": "GBP"
+        },
+        "month": 5,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 196.94,
+        "cost": {
+          "amount": "42.74",
+          "currencyUnit": "GBP"
+        },
+        "month": 6,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 259.57,
+        "cost": {
+          "amount": "56.33",
+          "currencyUnit": "GBP"
+        },
+        "month": 7,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 231.97,
+        "cost": {
+          "amount": "50.34",
+          "currencyUnit": "GBP"
+        },
+        "month": 8,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 236.183,
+        "cost": {
+          "amount": "51.28",
+          "currencyUnit": "GBP"
+        },
+        "month": 9,
+        "mpxn": "2628040591449",
+        "year": 2026
+      },
+      {
+        "consumption": 241.46,
+        "cost": {
+          "amount": "52.40",
+          "currencyUnit": "GBP"
+        },
+        "month": 10,
+        "mpxn": "2628040591449",
+        "year": 2026
+      }
+    ],
+    "next": false,
+    "prev": true
+  },
+  "gas": {
+    "data": [
+      {
+        "consumption": 752.45,
+        "cost": {
+          "amount": "49.74",
+          "currencyUnit": "GBP"
+        },
+        "month": 1,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 62.95,
+        "cost": {
+          "amount": "4.16",
+          "currencyUnit": "GBP"
+        },
+        "month": 2,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 62.89,
+        "cost": {
+          "amount": "4.16",
+          "currencyUnit": "GBP"
+        },
+        "month": 3,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 732.47,
+        "cost": {
+          "amount": "48.42",
+          "currencyUnit": "GBP"
+        },
+        "month": 4,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 376.92,
+        "cost": {
+          "amount": "24.91",
+          "currencyUnit": "GBP"
+        },
+        "month": 5,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 353.14,
+        "cost": {
+          "amount": "23.34",
+          "currencyUnit": "GBP"
+        },
+        "month": 6,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 199.01,
+        "cost": {
+          "amount": "13.15",
+          "currencyUnit": "GBP"
+        },
+        "month": 7,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 395.28,
+        "cost": {
+          "amount": "26.13",
+          "currencyUnit": "GBP"
+        },
+        "month": 8,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 484.11,
+        "cost": {
+          "amount": "32.01",
+          "currencyUnit": "GBP"
+        },
+        "month": 9,
+        "mpxn": "4662845828",
+        "year": 2026
+      },
+      {
+        "consumption": 578.44,
+        "cost": {
+          "amount": "38.24",
+          "currencyUnit": "GBP"
+        },
+        "month": 10,
+        "mpxn": "4662845828",
+        "year": 2026
+      }
+    ],
+    "next": false,
+    "prev": true
+  }
+}

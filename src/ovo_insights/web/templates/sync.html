@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Sync{% endblock %}
+{% block content %}
+<h1>Sync</h1>
+{% if breaker.open %}
+<p class="notice bad">Automatic syncing is paused because {{ breaker.reason }}. It restarts after a successful “Sync now”.</p>
+{% endif %}
+{% set last = runs[0] if runs and runs[0].finished_at else none %}
+{% if last and last.status.value != "ok" %}
+<div class="notice {{ 'bad' if last.status.value in ('failed', 'blocked') else 'warn' }}" role="status">
+  <strong>The last sync ({{ fmt(last.started_at) }}) {{ {"partial": "stopped early", "failed": "failed", "blocked": "was blocked"}[last.status.value] }}.</strong>
+  {{ explain(last.error_class) or "" }}
+  {% if last.status.value == "partial" %}Everything it saved is kept, and “Sync now” carries on from where it stopped.{% endif %}
+</div>
+{% endif %}
+<div class="card">
+  <p>Downloads anything new from OVO. The first sync fetches two years and takes at least 25 minutes; later ones take seconds. While <code>ovo-insights serve</code> is running, it also syncs once a day between 06:00 and 08:00.</p>
+  <button hx-post="/sync" hx-target="#sync-progress" hx-swap="outerHTML">Sync now</button>
+  {% include "_progress.html" %}
+</div>
+<h2>Recent syncs</h2>
+{% if runs %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Started</th><th>How</th><th>Result</th><th>Stopped by</th><th>Periods</th><th>Requests</th><th>New gaps</th></tr></thead>
+  <tbody>
+  {% for run in runs %}
+    <tr>
+      <td>{{ fmt(run.started_at) }}</td>
+      <td>{{ run.trigger.value }}</td>
+      <td>{{ run.status.value }}</td>
+      <td>{{ run.error_class or "" }}</td>
+      <td>{{ run.counts.periods_fetched }}</td>
+      <td>{{ run.counts.requests }}</td>
+      <td>{{ run.counts.gaps_found }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="muted">No syncs yet.</p>
+{% endif %}
+<h2>What's downloaded</h2>
+{% if accounts %}
+{% include "_coverage.html" %}
+{% else %}
+<p class="muted">Nothing yet.</p>
+{% endif %}
+{% endblock %}

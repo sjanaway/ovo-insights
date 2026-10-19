@@ -1,0 +1,57 @@
+{
+  "data": {
+    "customer_nextV1": {
+      "customerAccountRelationships": {
+        "edges": [
+          {
+            "node": {
+              "account": {
+                "accountSupplyPoints": [
+                  {
+                    "startDate": "2019-08-15",
+                    "supplyPoint": {
+                      "fuelType": "ELECTRICITY",
+                      "sprn": "2628040591449"
+                    }
+                  },
+                  {
+                    "startDate": "2019-08-15",
+                    "supplyPoint": {
+                      "fuelType": "GAS",
+                      "sprn": "4662845828"
+                    }
+                  }
+                ],
+                "id": "77805167"
+              }
+            }
+          },
+          {
+            "node": {
+              "account": {
+                "accountSupplyPoints": [
+                  {
+                    "startDate": "2015-09-28",
+                    "supplyPoint": {
+                      "fuelType": "ELECTRICITY",
+                      "sprn": "2628040591449"
+                    }
+                  },
+                  {
+                    "startDate": "2015-09-28",
+                    "supplyPoint": {
+                      "fuelType": "GAS",
+                      "sprn": "4662845828"
+                    }
+                  }
+                ],
+                "id": "1726416"
+              }
+            }
+          }
+        ]
+      },
+      "id": "u090v23c-xx8h-63n5-06ml-1p332y6g2090"
+    }
+  }
+}

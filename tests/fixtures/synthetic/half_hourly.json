@@ -1,0 +1,9 @@
+{
+  "electricity": {"prev": true, "next": false, "data": [
+    {"consumption": 0.5, "interval": {"start": "2025-01-01T00:00:00.000Z", "end": "2025-01-01T00:29:59.999Z"}, "unit": "kWh"},
+    {"consumption": 0.25, "interval": {"start": "2025-01-01T00:30:00.000Z", "end": "2025-01-01T00:59:59.999Z"}, "unit": "kWh"}
+  ]},
+  "gas": {"prev": true, "next": false, "data": [
+    {"consumption": 0.2, "interval": {"start": "2025-01-01T00:00:00Z", "end": "2025-01-01T00:30:00Z"}, "unit": "kWh"}
+  ]}
+}

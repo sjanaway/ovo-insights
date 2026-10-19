@@ -1,0 +1,57 @@
+# Install with: uv run pre-commit install --hook-type pre-commit --hook-type pre-push
+default_install_hook_types: [pre-commit, pre-push]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=500]
+        # The one vendored file over the limit (~1.1 MB); pinned by SHA-256 in MANIFEST.txt.
+        exclude: ^src/ovo_insights/web/static/vendor/echarts-6\.1\.0\.min\.js$
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-private-key
+      # Vendored files are kept byte-for-byte (their SHA-256 is pinned in MANIFEST.txt).
+      - id: end-of-file-fixer
+        exclude: ^src/ovo_insights/web/static/vendor/
+      - id: trailing-whitespace
+        exclude: ^src/ovo_insights/web/static/vendor/
+      - id: no-commit-to-branch
+        args: [--branch, main]
+        stages: [pre-commit]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
+  # Ruff and mypy run from the project environment so their versions match uv.lock.
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run --frozen ruff check --force-exclude
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run --frozen ruff format --check --force-exclude
+        language: system
+        types_or: [python, pyi]
+      - id: mypy
+        name: mypy --strict
+        entry: uv run --frozen mypy
+        language: system
+        types_or: [python, pyi]
+        pass_filenames: false
+      # Stand-in for server-side branch protection: the full suite must pass before any push.
+      - id: pytest
+        name: pytest (full suite + coverage gate)
+        entry: uv run --frozen pytest -q
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]

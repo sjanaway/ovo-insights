@@ -1,0 +1,10 @@
+# Default gitleaks rules plus a narrowly scoped allowlist for known false positives.
+# Uses the single-table [allowlist] form: the gitleaks bundled with gitleaks-action
+# ignores the newer [[allowlists]] array.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Kaluza's public API hostname (flagged by generic-api-key); not a secret"
+regexTarget = "match"
+regexes = ['''api\.eu1\.prod\.kaluza\.com''']

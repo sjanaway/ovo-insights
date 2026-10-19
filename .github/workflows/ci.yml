@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        python: ["3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - name: Install (lockfile must be up to date)
+        run: uv sync --locked
+      - name: Lint
+        run: uv run --frozen ruff check --output-format=github .
+      - name: Format
+        run: uv run --frozen ruff format --check .
+      - name: Types
+        run: uv run --frozen mypy
+      - name: Tests + coverage gate
+        env:
+          HYPOTHESIS_PROFILE: ci
+        run: uv run --frozen pytest
+      - name: Dependency vulnerability audit
+        shell: bash
+        run: |
+          uv export --frozen --all-groups --format requirements-txt --no-emit-project > "$RUNNER_TEMP/requirements.txt"
+          uv run --frozen pip-audit --strict --require-hashes --disable-pip --requirement "$RUNNER_TEMP/requirements.txt"
+      - name: Build wheel and sdist
+        run: uv build
+      - name: Smoke-test the built wheel
+        shell: bash
+        env:
+          OVO_INSIGHTS_DATA_DIR: ${{ runner.temp }}/ovo-insights-smoke
+        run: |
+          uv run --isolated --no-project --with dist/*.whl ovo-insights --version
+          # Package data (SQL migrations) must ship in the wheel and apply cleanly.
+          uv run --isolated --no-project --with dist/*.whl python -c "from ovo_insights.paths import default_data_dir; from ovo_insights.storage import open_database; open_database(default_data_dir()).close()"
+          uv run --isolated --no-project --with dist/*.whl python -c "from ovo_insights.ovo.client import _query; assert 'customer_nextV1' in _query('bootstrap.graphql'); assert 'meterReads_nextV1' in _query('meter_reads.graphql')"
+          # Templates and vendored static files must ship too, and the vendored hash must match.
+          uv run --isolated --no-project --with dist/*.whl python -c "import hashlib; from importlib.resources import files; from ovo_insights.web.app import templates; [templates().get_template(t) for t in ('dashboard.html', 'half_hourly.html')]; v = files('ovo_insights.web').joinpath('static/vendor'); rows = [l.split() for l in v.joinpath('MANIFEST.txt').read_text().splitlines() if l.strip() and not l.startswith('#')]; assert len(rows) >= 2; [None for name, _, digest, _ in rows if hashlib.sha256(v.joinpath(name).read_bytes()).hexdigest() == digest or exit(f'{name}: hash mismatch')]; assert files('ovo_insights.web').joinpath('static/charts.js').is_file()"
+
+  secrets:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read # the action lists a PR's commits to scan only those
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Commenting needs pull-requests: write, which this job deliberately doesn't have.
+          GITLEAKS_ENABLE_COMMENTS: "false"

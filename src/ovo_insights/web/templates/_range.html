@@ -1,0 +1,17 @@
+<div class="range-bar">
+<nav class="ranges" aria-label="Date range">
+  {% for value, label in presets.items() %}
+  <a href="?range={{ value.value }}{% for name, extra in carry.items() %}&amp;{{ name }}={{ extra | urlencode }}{% endfor %}"{% if value == choice.preset %} aria-current="true"{% endif %}>{{ label }}</a>
+  {% endfor %}
+</nav>
+<form class="custom-range" method="get" action="{{ path }}">
+  {% for name, extra in carry.items() %}<input type="hidden" name="{{ name }}" value="{{ extra }}">{% endfor %}
+  <label>From <input type="date" name="from" value="{{ span.first.isoformat() }}"{% if choice.earliest %} min="{{ choice.earliest.isoformat() }}"{% endif %} max="{{ choice.yesterday.isoformat() }}" required></label>
+  <label>To <input type="date" name="to" value="{{ span.last.isoformat() }}"{% if choice.earliest %} min="{{ choice.earliest.isoformat() }}"{% endif %} max="{{ choice.yesterday.isoformat() }}" required></label>
+  <button type="submit" class="secondary{% if choice.preset is none %} current{% endif %}">Show these dates</button>
+</form>
+</div>
+<p class="muted">Showing {{ span.first | uk_date }} to {{ span.last | uk_date }}{% if choice.preset is none %} (your dates){% endif %}.</p>
+{% if missing %}
+<p class="notice warn">{{ missing }} day{{ "s" if missing != 1 }} missing in this range, so totals may be low (see <a href="/readings">Readings &amp; gaps</a>).</p>
+{% endif %}

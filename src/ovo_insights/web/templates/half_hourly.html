@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Details{% endblock %}
+{% block scripts %}{% include "_charts_js.html" %}{% endblock %}
+{% block content %}
+<h1>Details</h1>
+<p class="muted">The data shown on this page is half-hourly: one reading for every half hour of the day.</p>
+{% include "_range.html" %}
+{% if base_load %}
+<div class="tiles">
+  <div class="tile"><span class="label">Base load</span><span class="value">{{ base_load.watts_text }} W</span><span class="muted">always-on use: the lowest 10% of half-hours between {{ window_start }} and {{ window_end }}{% if window.wraps %} (past midnight){% endif %}</span></div>
+  <div class="tile"><span class="label">Base load per year</span><span class="value">{% if base_load.per_year_text %}£{{ base_load.per_year_text | gbp }}{% else %}—{% endif %}</span><span class="muted">{% if base_load.rate_text %}at your recent {{ base_load.rate_text }}p/kWh{% else %}no unit rate yet{% endif %}</span></div>
+</div>
+{% endif %}
+<form class="window-form" method="get" action="/half-hourly">
+  {% if choice.preset is none %}<input type="hidden" name="from" value="{{ span.first.isoformat() }}"><input type="hidden" name="to" value="{{ span.last.isoformat() }}">{% else %}<input type="hidden" name="range" value="{{ choice.preset.value }}">{% endif %}
+  <span class="muted">Base load window (UK time):</span>
+  <label>From
+    <select name="bl_from">{% for t in window_times %}<option value="{{ t }}"{% if t == window_start %} selected{% endif %}>{{ t }}</option>{% endfor %}</select></label>
+  <label>To
+    <select name="bl_to">{% for t in window_times %}<option value="{{ t }}"{% if t == window_end %} selected{% endif %}>{{ t }}{% if t == "00:00" %} (midnight){% endif %}</option>{% endfor %}</select></label>
+  <button type="submit" class="secondary{% if window_query %} current{% endif %}">Show base load</button>
+</form>
+{% if base_load %}
+<h2>Baseload</h2>
+<div class="chart" data-chart="baseload" data-src="/api/charts/base-load?{{ choice.query }}{% if window_query %}&amp;{{ window_query }}{% endif %}" role="img" aria-label="Base load per night in watts"></div>
+{% endif %}
+{% if base_load %}
+<h2>Electricity by half-hour</h2>
+<p class="muted">Each column is a day; each row a half-hour (UK time). Darker means more electricity.</p>
+<div class="chart tall" data-chart="heatmap" data-src="/api/charts/heatmap?{{ choice.query }}" role="img" aria-label="Electricity heatmap by day and half-hour"></div>
+<h2>A typical day</h2>
+<div class="chart" data-chart="profile" data-src="/api/charts/profile?{{ choice.query }}" role="img" aria-label="Average electricity by half-hour, weekdays and weekends"></div>
+{% else %}
+<div class="card"><p>No half-hourly electricity data in this range.</p></div>
+{% endif %}
+{% if has_gas %}
+<h2>Gas by day</h2>
+<p class="muted">Gas is shown per day: OVO's half-hourly gas data is often missing.</p>
+<div class="chart" data-chart="gas" data-src="/api/charts/gas-daily?{{ choice.query }}" role="img" aria-label="Gas used per day"></div>
+{% endif %}
+{% endblock %}

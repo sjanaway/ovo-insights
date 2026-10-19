@@ -1,0 +1,23 @@
+# Accounts and supply points for the logged-in customer.
+# Deliberately requests no address or personal fields: we don't need them.
+query Bootstrap($customerId: ID!) {
+  customer_nextV1(id: $customerId) {
+    id
+    customerAccountRelationships {
+      edges {
+        node {
+          account {
+            id
+            accountSupplyPoints {
+              startDate
+              supplyPoint {
+                fuelType
+                sprn
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

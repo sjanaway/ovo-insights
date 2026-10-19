@@ -1,0 +1,9 @@
+<div id="sync-progress"{% if progress.running %} hx-get="/sync/progress" hx-trigger="every 2s" hx-swap="outerHTML"{% endif %} aria-live="polite">
+  {% if message %}<p class="notice warn">{{ message }}</p>{% endif %}
+  {% if progress.running %}
+  <p>Syncing{% if progress.phase == "fetching" and progress.periods_total %}: {{ progress.periods_done }} of {{ progress.periods_total }} periods{% elif progress.phase == "accounts" %}: logging in and finding your accounts{% else %}…{% endif %}</p>
+  {% if progress.periods_total %}<progress value="{{ progress.periods_done }}" max="{{ progress.periods_total }}"></progress>{% endif %}
+  {% elif progress.phase in ("ok", "partial", "failed", "blocked") %}
+  <p>The sync you started finished: <strong>{{ progress.phase }}</strong>, {{ progress.periods_done }} of {{ progress.periods_total }} periods. Reload the page for details.</p>
+  {% endif %}
+</div>

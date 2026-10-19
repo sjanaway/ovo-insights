@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Readings &amp; gaps{% endblock %}
+{% block scripts %}{% include "_charts_js.html" %}
+<script src="/static/calendar.js" defer></script>{% endblock %}
+{% block content %}
+<h1>Readings &amp; gaps</h1>
+{% include "_range.html" %}
+
+<h2>Data completeness</h2>
+{% if calendars %}
+<p class="muted">One square per day. {% if gaps %}{{ gaps }} day{{ "s" if gaps != 1 }} in this range {{ "have" if gaps != 1 else "has" }} a gap (missing, or short of half-hours).{% else %}No gaps in this range.{% endif %}</p>
+<ul class="legend" aria-label="Key">
+  {% for state, label in state_labels.items() %}
+  <li><span class="cell {{ state.value | replace("_", "-") }}"></span> {{ label }}</li>
+  {% endfor %}
+</ul>
+<div class="tiles">
+  {% for cal in calendars %}
+  {% set done = cal.completeness %}
+  <div class="tile"><span class="label">{{ cal.fuel.value | capitalize }}: half-hour coverage</span><span class="value">{% if done.half_hour_percent is not none %}{{ done.half_hour_percent }}%{% else %}n/a{% endif %}</span><span class="muted">{% if done.half_hour_percent is not none %}{{ "{:,}".format(done.received_slots) }} of {{ "{:,}".format(done.expected_slots) }} half-hours{% else %}no half-hourly data expected for this fuel{% endif %}</span></div>
+  <div class="tile"><span class="label">{{ cal.fuel.value | capitalize }}: days with data</span><span class="value">{% if done.daily_percent is not none %}{{ done.daily_percent }}%{% else %}n/a{% endif %}</span><span class="muted">{{ done.counts["complete"] }} complete, {{ done.counts["partial"] }} partial, {{ done.counts["missing"] }} missing</span></div>
+  {% endfor %}
+</div>
+{% for cal in calendars %}
+<h3>{{ cal.fuel.value | capitalize }}</h3>
+{% if cal.clipped %}<p class="muted">Data for {{ cal.fuel.value }} starts on {{ cal.first | uk_date }}; earlier days were never downloaded and aren't shown.</p>{% endif %}
+<div class="table-wrap">
+<div class="calendar" role="list" data-detail-id="detail-{{ cal.fuel.value }}" aria-label="{{ cal.fuel.value | capitalize }} completeness by day">
+  {% for cell in cal.cells %}
+  <span class="cell {{ cell.css }}{% if loop.first and cal.offset %} start-{{ cal.offset }}{% endif %}" role="listitem" title="{{ cell.label }}" data-detail="{{ cell.label }}" aria-label="{{ cell.label }}"></span>
+  {% endfor %}
+</div>
+</div>
+<p class="cal-detail" id="detail-{{ cal.fuel.value }}" aria-live="polite">Hover over or tap a square to see its date and details.</p>
+{% endfor %}
+<p class="muted">Each column is a week (Monday at the top). Today isn't available yet: OVO's data runs to the end of yesterday. Half-hours expected are 48 a day, or 46 and 50 when the clocks change.</p>
+{% else %}
+<div class="card"><p>No usage data in this range yet. Run a sync first.</p></div>
+{% endif %}
+
+<h2>Meter readings</h2>
+{% if chosen %}
+<nav class="ranges" aria-label="Meter and register">
+  {% for option in picker %}
+  <a href="{{ link(r=option.number|string, rpage="1", cpage="1") }}"{% if option.number == chosen.number %} aria-current="true"{% endif %}>{{ option.label }} · {{ option.in_range }}</a>
+  {% endfor %}
+</nav>
+<p class="muted">The number after each name is how many readings fall inside the chosen dates. Readings go back further than smart-meter data, so pick “All” to see them all.</p>
+
+<div class="table-wrap">
+<table>
+  <caption class="muted">{{ chosen.label }}</caption>
+  <thead><tr>
+  {% for column in columns %}
+    <th scope="col"{% if column == sort %} aria-sort="{{ 'descending' if descending else 'ascending' }}"{% endif %}><a href="{{ link(sort=column, dir=('asc' if (column == sort and descending) else 'desc' if column == sort else ('desc' if column == 'date' else 'asc')), rpage="1") }}">{{ column | capitalize }}</a></th>
+  {% endfor %}
+  </tr></thead>
+  <tbody>
+  {% for reading in table %}
+    <tr>
+      <td>{{ reading.read_date | uk_date }}</td>
+      <td>{{ "{:f}".format(reading.value) }}</td>
+      <td>{{ (reading.source or "—") | replace("_", " ") | lower }}</td>
+      <td>{{ (reading.lifecycle or "—") | replace("_", " ") | lower }}</td>
+      <td>{{ (reading.read_type or "—") | lower }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="muted">No readings in this range.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% if pages > 1 %}
+<p class="pager">Page {{ reading_page }} of {{ pages }}
+  {% if reading_page > 1 %}<a href="{{ link(rpage=(reading_page - 1)|string) }}">Previous</a>{% endif %}
+  {% if reading_page < pages %}<a href="{{ link(rpage=(reading_page + 1)|string) }}">Next</a>{% endif %}
+</p>
+{% endif %}
+
+<h2>Readings against smart data</h2>
+{% if compared.gas %}
+<p class="muted">Between each pair of readings, the volume the gas meter recorded. OVO converts gas volume to kWh using a calorific value that changes every day, so there is no one figure to convert with. Instead the bill's formula is run backwards: from the smart-data kWh and the volume, the <strong>implied calorific value</strong>. It's flagged if it falls outside the {{ calorific_range[0] }} to {{ calorific_range[1] }} MJ/m³ range printed on the bill.</p>
+{% else %}
+<p class="muted">The change between each pair of readings, against the smart-data total for the same days. Flagged when they differ by more than 5% (and at least 0.1 kWh).</p>
+{% endif %}
+<div class="tiles">
+  <div class="tile"><span class="label">Periods between readings</span><span class="value">{{ compared.summary.total }}</span><span class="muted">ending in this range</span></div>
+  <div class="tile"><span class="label">Compared</span><span class="value">{{ compared.summary.compared }}</span><span class="muted">{{ compared.summary.mismatched }} flagged</span></div>
+  <div class="tile"><span class="label">Not compared</span><span class="value">{{ compared.summary.not_compared }}</span><span class="muted">no smart data, gaps or unsupported</span></div>
+</div>
+{% if compared.summary.compared %}
+<div class="chart" data-chart="readings" data-src="/api/charts/readings?r={{ chosen.number }}&amp;{{ query }}" role="img" aria-label="Readings compared with smart data"></div>
+{% endif %}
+<nav class="ranges" aria-label="Which periods to list">
+  <a href="{{ link(show="all", cpage="1") }}"{% if show == "all" %} aria-current="true"{% endif %}>All periods</a>
+  <a href="{{ link(show="problems", cpage="1") }}"{% if show == "problems" %} aria-current="true"{% endif %}>Flagged and not comparable</a>
+</nav>
+<div class="table-wrap">
+<table>
+  <thead><tr>
+    <th scope="col">From</th><th scope="col">To</th><th scope="col">Days</th>
+    {% if compared.gas %}
+    <th scope="col">Volume (m³)</th><th scope="col">Smart data (kWh)</th><th scope="col">Implied CV (MJ/m³)</th>
+    {% else %}
+    <th scope="col">From readings (kWh)</th><th scope="col">Smart data (kWh)</th><th scope="col">Difference</th>
+    {% endif %}
+    <th scope="col">Result</th>
+  </tr></thead>
+  <tbody>
+  {% for w in windows %}
+    <tr>
+      <td>{{ w.start | uk_date }}</td>
+      <td>{{ w.end | uk_date }}</td>
+      <td>{{ w.days }}</td>
+      {% if compared.gas %}
+      <td>{% if w.volume_m3 is not none %}{{ "{:,.3f}".format(w.volume_m3) }}{% else %}—{% endif %}</td>
+      <td>{% if w.smart_kwh is not none %}{{ "{:,.2f}".format(w.smart_kwh) }}{% if w.smart_days < w.days %} <span class="muted">({{ w.smart_days }} of {{ w.days }} days)</span>{% endif %}{% else %}—{% endif %}</td>
+      <td>{% if w.implied_calorific_value is not none %}{{ w.implied_calorific_value }}{% else %}—{% endif %}</td>
+      {% else %}
+      <td>{% if w.derived_kwh is not none %}{{ "{:,.3f}".format(w.derived_kwh) }}{% else %}—{% endif %}</td>
+      <td>{% if w.smart_kwh is not none %}{{ "{:,.3f}".format(w.smart_kwh) }}{% if w.smart_days < w.days %} <span class="muted">({{ w.smart_days }} of {{ w.days }} days)</span>{% endif %}{% else %}—{% endif %}</td>
+      <td>{% if w.difference_kwh is not none %}{{ "{:+,.3f}".format(w.difference_kwh) }} kWh{% if w.difference_percent is not none %} ({{ w.difference_percent }}%){% endif %}{% else %}—{% endif %}</td>
+      {% endif %}
+      <td class="{{ 'flag' if w.verdict.value == 'mismatch' else '' }}">{{ verdict_labels[w.verdict] }}{% if w.verdict.value == "went_down" %} ({{ "{:+,.3f}".format(w.change) }}){% endif %}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7" class="muted">No periods to show.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% if window_pages > 1 %}
+<p class="pager">Page {{ window_page }} of {{ window_pages }}
+  {% if window_page > 1 %}<a href="{{ link(cpage=(window_page - 1)|string) }}">Previous</a>{% endif %}
+  {% if window_page < window_pages %}<a href="{{ link(cpage=(window_page + 1)|string) }}">Next</a>{% endif %}
+</p>
+{% endif %}
+{% else %}
+<div class="card"><p>No meter readings are stored yet. Run a sync first.</p></div>
+{% endif %}
+{% endblock %}

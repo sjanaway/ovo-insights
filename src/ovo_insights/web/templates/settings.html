@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<h1>Settings</h1>
+<div class="card">
+  <h2>Your OVO login</h2>
+  {% if has_login %}
+  <p>A login is saved in the Keychain.</p>
+  <button class="secondary" hx-post="/settings/forget" hx-target="#forget-result" hx-confirm="Delete your saved OVO login from the Keychain?">Forget my login</button>
+  {% else %}
+  <p class="muted">No login is saved. <a href="/setup">Add one</a>.</p>
+  {% endif %}
+  <div id="forget-result" aria-live="polite"></div>
+</div>
+<div class="card">
+  <h2>Delete all data</h2>
+  <p>Deletes every downloaded reading and usage figure, and the log files, from <code>{{ data_dir }}</code>. Your saved login is kept. This can't be undone.</p>
+  <form class="stack" hx-post="/settings/delete" hx-target="#delete-result" hx-swap="innerHTML">
+    <label>Type DELETE to confirm <input type="text" name="confirm" autocomplete="off" spellcheck="false"></label>
+    <button type="submit" class="danger">Delete all data</button>
+  </form>
+  <div id="delete-result" aria-live="polite"></div>
+</div>
+{% endblock %}

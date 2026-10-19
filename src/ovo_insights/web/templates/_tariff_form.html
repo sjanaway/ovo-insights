@@ -1,0 +1,55 @@
+{# The tariff editor. `values` are the field values, `errors` a FormErrors, `action` where it posts. #}
+<form class="tariff-form" id="tariff-form" hx-post="{{ action }}" hx-target="#tariff-form" hx-swap="outerHTML" autocomplete="off">
+  <h2>{{ heading }}</h2>
+  <p class="muted">All rates are <strong>inc. VAT</strong>, as on your bill. Times are UK clock time on the hour or half hour; a band that ends before it starts runs past midnight (07:30 to 00:30 is the rest of the day after a 00:30 to 07:30 night rate). Each day of the week must have a rate for every half hour, exactly once. A band belongs to the day it falls on, so a band over midnight covers the early hours of the same day.</p>
+  {% if errors.general %}
+  <div class="notice bad" role="alert"><ul>{% for message in errors.general %}<li>{{ message }}</li>{% endfor %}</ul></div>
+  {% elif errors %}
+  <p class="notice bad" role="alert">Please fix the highlighted fields.</p>
+  {% endif %}
+  <div class="form-grid">
+    <label><span class="lbl">Name</span>
+      <input type="text" name="name" value="{{ values.get('name', '') }}" maxlength="64" required{% if errors.by_field.get('name') %} aria-invalid="true"{% endif %}>
+      <span class="below">{% if errors.by_field.get('name') %}<span class="field-error">{{ errors.by_field['name'] }}</span>{% endif %}<span class="muted hint">Tariffs with the same name and fuel are versions of one tariff, compared as one (use the dates to say when each applies).</span></span></label>
+    <label><span class="lbl">Fuel</span>
+      <select name="fuel">
+        {% for fuel_value in ("electricity", "gas") %}
+        <option value="{{ fuel_value }}"{% if values.get('fuel') == fuel_value %} selected{% endif %}>{{ fuel_value | capitalize }}</option>
+        {% endfor %}
+      </select>
+      <span class="below">{% if errors.by_field.get('fuel') %}<span class="field-error">{{ errors.by_field['fuel'] }}</span>{% endif %}<span class="muted hint">Gas has one rate: use a single band.</span></span></label>
+    <label><span class="lbl">Standing charge (pence per day, inc. VAT)</span>
+      <input type="text" inputmode="decimal" name="standing" value="{{ values.get('standing', '') }}" required{% if errors.by_field.get('standing') %} aria-invalid="true"{% endif %}>
+      <span class="below">{% if errors.by_field.get('standing') %}<span class="field-error">{{ errors.by_field['standing'] }}</span>{% endif %}</span></label>
+    <label><span class="lbl">Applies from (optional)</span>
+      <input type="date" name="effective_from" value="{{ values.get('effective_from', '') }}"{% if errors.by_field.get('effective_from') %} aria-invalid="true"{% endif %}>
+      <span class="below">{% if errors.by_field.get('effective_from') %}<span class="field-error">{{ errors.by_field['effective_from'] }}</span>{% endif %}</span></label>
+    <label><span class="lbl">Applies to, inclusive (optional)</span>
+      <input type="date" name="effective_to" value="{{ values.get('effective_to', '') }}"{% if errors.by_field.get('effective_to') %} aria-invalid="true"{% endif %}>
+      <span class="below">{% if errors.by_field.get('effective_to') %}<span class="field-error">{{ errors.by_field['effective_to'] }}</span>{% endif %}</span></label>
+  </div>
+  <h3>Rates</h3>
+  <div class="table-wrap">
+  <table class="bands">
+    <thead><tr><th scope="col">From</th><th scope="col">To</th><th scope="col">Pence per kWh</th><th scope="col">Days</th></tr></thead>
+    <tbody>
+    {% for i in range(rows) %}
+      <tr>
+        <td><input type="text" name="band{{ i }}_start" value="{{ values.get('band%d_start' % i, '') }}" placeholder="00:00" size="5" aria-label="Band {{ i + 1 }} from"{% if errors.by_field.get('band%d_start' % i) %} aria-invalid="true"{% endif %}></td>
+        <td><input type="text" name="band{{ i }}_end" value="{{ values.get('band%d_end' % i, '') }}" placeholder="00:00" size="5" aria-label="Band {{ i + 1 }} to"{% if errors.by_field.get('band%d_end' % i) %} aria-invalid="true"{% endif %}></td>
+        <td><input type="text" inputmode="decimal" name="band{{ i }}_rate" value="{{ values.get('band%d_rate' % i, '') }}" size="8" aria-label="Band {{ i + 1 }} pence per kWh"{% if errors.by_field.get('band%d_rate' % i) %} aria-invalid="true"{% endif %}></td>
+        <td class="days">{% for d in range(7) %}<label class="day"><input type="checkbox" name="band{{ i }}_day{{ d }}" value="1"{% if values.get('band%d_day%d' % (i, d)) %} checked{% endif %}> {{ day_labels[d] }}</label>{% endfor %}</td>
+      </tr>
+      {% for key in ("start", "end", "rate", "days") %}{% if errors.by_field.get('band%d_%s' % (i, key)) %}
+      <tr><td colspan="4"><span class="field-error">Band {{ i + 1 }}: {{ errors.by_field['band%d_%s' % (i, key)] }}</span></td></tr>
+      {% endif %}{% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">Leave a row empty to skip it.</p>
+  <div class="actions">
+    <button type="submit">{{ submit }}</button>
+    <a class="button secondary" href="/tariffs">Cancel</a>
+  </div>
+</form>

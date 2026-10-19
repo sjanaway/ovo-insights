@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.egg-info/
+
+# Tooling caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Never commit real OVO data. Raw captures live here until redacted (see CONTRIBUTING.md).
+fixtures-raw/
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.csv
+.env
+.env.*
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

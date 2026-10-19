@@ -1,0 +1,20 @@
+{"data": {"account": {"id": "7654321", "accountSupplyPoints": [
+  {"startDate": "2022-03-15", "end": {"date": null},
+   "supplyPoint": {"sprn": "1900000000000", "fuelType": "ELECTRICITY", "id": "x", "region": "R", "timezone": "Europe/London",
+     "meterTechnicalDetails": [{"type": "SMETS2", "meterSerialNumber": "23E0000000", "status": "ACTIVE",
+       "registers": [
+         {"registerId": "1", "timingCategory": "DAY", "numberOfDigits": "6", "unitMeasurement": "KWH", "registerStartDate": "2022-03-15T00:00:00.000Z", "registerEndDate": null},
+         {"registerId": "2", "timingCategory": "NIGHT", "numberOfDigits": "6", "unitMeasurement": "KWH", "registerStartDate": "2022-03-15T00:00:00.000Z", "registerEndDate": null}
+       ]}]},
+   "meterReads_nextV1": {"edges": [
+     {"node": {"reading": {"type": "ELECTRICITY", "date": "2025-01-01", "lifecycle": "VALID", "source": "SMART", "meterSerialNumber": "23E0000000",
+       "registers": [{"registerId": "1", "timingCategory": "DAY", "value": "012345.6"}, {"registerId": "2", "timingCategory": "NIGHT", "value": "5432.1"}]}}}
+   ]}},
+  {"startDate": "2022-03-15", "end": {"date": null},
+   "supplyPoint": {"sprn": "9876543", "fuelType": "GAS",
+     "meterTechnicalDetails": [{"type": "SMETS2", "meterSerialNumber": "G4A0000000", "status": "ACTIVE",
+       "registers": [{"registerId": "1", "timingCategory": "STANDARD", "numberOfDigits": "5", "unitMeasurement": "M3", "registerStartDate": "2022-03-15T00:00:00.000Z", "registerEndDate": null}]}]},
+   "meterReads_nextV1": {"edges": [
+     {"node": {"reading": {"type": "GAS", "date": "2025-01-01T00:00:00.000Z", "lifecycle": "VALID", "source": "SMART", "meterSerialNumber": "G4A0000000", "value": "789.123"}}}
+   ]}}
+]}}}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block scripts %}{% include "_charts_js.html" %}{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+{% if not has_login and not demo %}
+<p class="notice warn">No OVO login is saved yet. <a href="/setup">Set it up</a> to start syncing.</p>
+{% endif %}
+{% if not accounts %}
+<div class="card">
+  <p>No data yet — run a sync from the <a href="/sync">Sync</a> page.</p>
+</div>
+{% else %}
+{% if last_run %}
+<p class="muted">Last sync: {{ last_run.status.value }}, {{ fmt(last_run.finished_at or last_run.started_at) }}. OVO's data runs to the end of yesterday.</p>
+{% endif %}
+{% include "_range.html" %}
+{% if not tiles %}
+<div class="card"><p>No usage in this range.</p></div>
+{% endif %}
+{% for t in tiles %}
+<section class="fuel">
+  <h2>{{ t.fuel.value.capitalize() }}</h2>
+  <div class="tiles">
+    <div class="tile"><span class="label">Used</span><span class="value">{{ "{:,.1f}".format(t.summary.kwh) }} kWh</span></div>
+    <div class="tile"><span class="label">Cost</span><span class="value">{% if t.cost_text %}£{{ t.cost_text | gbp }}{% else %}—{% endif %}</span><span class="muted">incl. standing charge</span></div>
+    <div class="tile"><span class="label">Average per day</span><span class="value">{% if t.average_text %}£{{ t.average_text | gbp }}{% else %}—{% endif %}</span><span class="muted">over {{ t.summary.costed_days }} day{{ "s" if t.summary.costed_days != 1 }}</span></div>
+    <div class="tile"><span class="label">Vs a year earlier</span>
+      {% if t.change.kwh_percent is not none %}
+      <span class="value">{{ "{:+}".format(t.change.kwh_percent) }}% kWh</span>
+      <span class="muted">{% if t.change.cost_percent is not none %}{{ "{:+}".format(t.change.cost_percent) }}% cost, {% endif %}same {{ t.change.days_compared }} day{{ "s" if t.change.days_compared != 1 }}</span>
+      {% else %}
+      <span class="value">—</span><span class="muted">no data a year earlier</span>
+      {% endif %}
+    </div>
+  </div>
+  <div class="chart" data-chart="usage" data-src="/api/charts/usage?fuel={{ t.fuel.value }}&amp;{{ choice.query }}" role="img" aria-label="{{ t.fuel.value }} kWh used"></div>
+  <div class="chart" data-chart="cost" data-src="/api/charts/usage?fuel={{ t.fuel.value }}&amp;{{ choice.query }}" role="img" aria-label="{{ t.fuel.value }} cost"></div>
+  <div class="chart" data-chart="yoy" data-src="/api/charts/yoy?fuel={{ t.fuel.value }}&amp;{{ choice.query }}" role="img" aria-label="{{ t.fuel.value }} compared with a year earlier"></div>
+</section>
+{% endfor %}
+<h2>What's downloaded</h2>
+{% include "_coverage.html" %}
+{% endif %}
+{% endblock %}

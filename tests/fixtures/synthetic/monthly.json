@@ -1,0 +1,9 @@
+{
+  "electricity": {"prev": true, "next": false, "data": [
+    {"mpxn": "1900000000000", "year": 2025, "month": 1, "consumption": 312.45, "cost": {"amount": "98.76", "currencyUnit": "GBP"}},
+    {"mpxn": "1900000000000", "year": 2025, "month": 2, "consumption": 280.1, "cost": {"amount": "88.10", "currencyUnit": "GBP"}}
+  ]},
+  "gas": {"prev": true, "next": false, "data": [
+    {"mpxn": "9876543", "year": 2025, "month": 1, "consumption": 1450.2, "cost": null}
+  ]}
+}

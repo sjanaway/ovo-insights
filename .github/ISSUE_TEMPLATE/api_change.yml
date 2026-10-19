@@ -1,0 +1,61 @@
+name: OVO API change
+description: ovo-insights stopped working with OVO because their API changed or blocked it.
+labels: [api-change]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        OVO's APIs are private and can change without notice. `ovo-insights doctor` finds out
+        which part broke. **Never paste passwords, tokens, cookies, raw API responses,
+        account numbers, MPAN/MPRN or meter serials.** If you must show a response's shape,
+        replace every value with a placeholder and keep only the field names.
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `ovo-insights doctor`
+      description: Run it again now and paste the whole table. It contains counts only; check it before pasting.
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: failing
+    attributes:
+      label: What fails?
+      multiple: true
+      options:
+        - Logging in
+        - Accounts
+        - Monthly usage
+        - Daily usage
+        - Half-hourly usage
+        - Meter readings
+        - A 403 or "blocked" message
+        - A "schema changed" message
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: when
+    attributes:
+      label: When did it last work, and what changed?
+      description: For example, the date of your last good sync, or if OVO changed your account or app.
+  - type: textarea
+    id: shape
+    attributes:
+      label: The part of the response that changed (field names only)
+      description: Optional. Field names and types, never values.
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `ovo-insights --version`.
+    validations:
+      required: true
+  - type: checkboxes
+    id: redacted
+    attributes:
+      label: Privacy check
+      options:
+        - label: I have removed passwords, tokens, cookies, account numbers, MPAN/MPRN, meter serials and addresses from everything above.
+          required: true

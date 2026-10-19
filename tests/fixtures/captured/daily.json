@@ -1,0 +1,976 @@
+{
+  "electricity": {
+    "data": [
+      {
+        "consumption": 6.275,
+        "cost": {
+          "amount": "1.36",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-01T23:59:59.999",
+          "start": "2026-09-01T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.314,
+        "cost": {
+          "amount": "1.59",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-02T23:59:59.999",
+          "start": "2026-09-02T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 9.244,
+        "cost": {
+          "amount": "2.01",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-03T23:59:59.999",
+          "start": "2026-09-03T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.011,
+        "cost": {
+          "amount": "1.74",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-04T23:59:59.999",
+          "start": "2026-09-04T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.027,
+        "cost": {
+          "amount": "1.52",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-05T23:59:59.999",
+          "start": "2026-09-05T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.208,
+        "cost": {
+          "amount": "1.78",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-06T23:59:59.999",
+          "start": "2026-09-06T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.647,
+        "cost": {
+          "amount": "1.88",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-07T23:59:59.999",
+          "start": "2026-09-07T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 6.199,
+        "cost": {
+          "amount": "1.35",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-08T23:59:59.999",
+          "start": "2026-09-08T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.893,
+        "cost": {
+          "amount": "1.71",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-09T23:59:59.999",
+          "start": "2026-09-09T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.871,
+        "cost": {
+          "amount": "1.93",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-10T23:59:59.999",
+          "start": "2026-09-10T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 5.861,
+        "cost": {
+          "amount": "1.27",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-11T23:59:59.999",
+          "start": "2026-09-11T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 10.099,
+        "cost": {
+          "amount": "2.19",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-12T23:59:59.999",
+          "start": "2026-09-12T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.074,
+        "cost": {
+          "amount": "1.75",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-13T23:59:59.999",
+          "start": "2026-09-13T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.943,
+        "cost": {
+          "amount": "1.94",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-14T23:59:59.999",
+          "start": "2026-09-14T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 6.353,
+        "cost": {
+          "amount": "1.38",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-15T23:59:59.999",
+          "start": "2026-09-15T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 10.82,
+        "cost": {
+          "amount": "2.35",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-16T23:59:59.999",
+          "start": "2026-09-16T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.243,
+        "cost": {
+          "amount": "1.57",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-17T23:59:59.999",
+          "start": "2026-09-17T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.774,
+        "cost": {
+          "amount": "1.69",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-18T23:59:59.999",
+          "start": "2026-09-18T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.603,
+        "cost": {
+          "amount": "1.87",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-19T23:59:59.999",
+          "start": "2026-09-19T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 9.024,
+        "cost": {
+          "amount": "1.96",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-20T23:59:59.999",
+          "start": "2026-09-20T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.309,
+        "cost": {
+          "amount": "1.59",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-21T23:59:59.999",
+          "start": "2026-09-21T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.816,
+        "cost": {
+          "amount": "1.70",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-22T23:59:59.999",
+          "start": "2026-09-22T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 9.765,
+        "cost": {
+          "amount": "2.12",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-23T23:59:59.999",
+          "start": "2026-09-23T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 9.900,
+        "cost": {
+          "amount": "2.15",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-24T23:59:59.999",
+          "start": "2026-09-24T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 6.263,
+        "cost": {
+          "amount": "1.36",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-25T23:59:59.999",
+          "start": "2026-09-25T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 6.805,
+        "cost": {
+          "amount": "1.48",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-26T23:59:59.999",
+          "start": "2026-09-26T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 7.502,
+        "cost": {
+          "amount": "1.63",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-27T23:59:59.999",
+          "start": "2026-09-27T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 5.754,
+        "cost": {
+          "amount": "1.25",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-28T23:59:59.999",
+          "start": "2026-09-28T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 5.781,
+        "cost": {
+          "amount": "1.25",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-29T23:59:59.999",
+          "start": "2026-09-29T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      },
+      {
+        "consumption": 8.805,
+        "cost": {
+          "amount": "1.91",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": true,
+        "interval": {
+          "end": "2026-09-30T23:59:59.999",
+          "start": "2026-09-30T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.2170,
+          "standing": 0.4436
+        }
+      }
+    ],
+    "next": true,
+    "prev": true,
+    "prevYear": true
+  },
+  "gas": {
+    "data": [
+      {
+        "consumption": 18.89,
+        "cost": {
+          "amount": "1.25",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-01T23:59:59.999",
+          "start": "2026-09-01T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 15.59,
+        "cost": {
+          "amount": "1.03",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-02T23:59:59.999",
+          "start": "2026-09-02T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 4.95,
+        "cost": {
+          "amount": "0.33",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-03T23:59:59.999",
+          "start": "2026-09-03T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 25.26,
+        "cost": {
+          "amount": "1.67",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-04T23:59:59.999",
+          "start": "2026-09-04T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 20.94,
+        "cost": {
+          "amount": "1.38",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-05T23:59:59.999",
+          "start": "2026-09-05T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 22.56,
+        "cost": {
+          "amount": "1.49",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-06T23:59:59.999",
+          "start": "2026-09-06T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 15.58,
+        "cost": {
+          "amount": "1.03",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-07T23:59:59.999",
+          "start": "2026-09-07T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 15.03,
+        "cost": {
+          "amount": "0.99",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-08T23:59:59.999",
+          "start": "2026-09-08T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 9.34,
+        "cost": {
+          "amount": "0.62",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-09T23:59:59.999",
+          "start": "2026-09-09T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 22.92,
+        "cost": {
+          "amount": "1.52",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-10T23:59:59.999",
+          "start": "2026-09-10T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 25.70,
+        "cost": {
+          "amount": "1.70",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-11T23:59:59.999",
+          "start": "2026-09-11T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 6.6,
+        "cost": {
+          "amount": "0.44",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-12T23:59:59.999",
+          "start": "2026-09-12T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 19.31,
+        "cost": {
+          "amount": "1.28",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-13T23:59:59.999",
+          "start": "2026-09-13T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 9.4,
+        "cost": {
+          "amount": "0.62",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-14T23:59:59.999",
+          "start": "2026-09-14T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 22.25,
+        "cost": {
+          "amount": "1.47",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-15T23:59:59.999",
+          "start": "2026-09-15T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 11.33,
+        "cost": {
+          "amount": "0.75",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-16T23:59:59.999",
+          "start": "2026-09-16T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 17.53,
+        "cost": {
+          "amount": "1.16",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-17T23:59:59.999",
+          "start": "2026-09-17T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 6.08,
+        "cost": {
+          "amount": "0.40",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-18T23:59:59.999",
+          "start": "2026-09-18T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 8.50,
+        "cost": {
+          "amount": "0.56",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-19T23:59:59.999",
+          "start": "2026-09-19T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 10.51,
+        "cost": {
+          "amount": "0.69",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-20T23:59:59.999",
+          "start": "2026-09-20T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 15.1,
+        "cost": {
+          "amount": "1.00",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-21T23:59:59.999",
+          "start": "2026-09-21T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 20.11,
+        "cost": {
+          "amount": "1.33",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-22T23:59:59.999",
+          "start": "2026-09-22T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 25.12,
+        "cost": {
+          "amount": "1.66",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-23T23:59:59.999",
+          "start": "2026-09-23T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 15.6,
+        "cost": {
+          "amount": "1.03",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-24T23:59:59.999",
+          "start": "2026-09-24T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 18.33,
+        "cost": {
+          "amount": "1.21",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-25T23:59:59.999",
+          "start": "2026-09-25T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 3.43,
+        "cost": {
+          "amount": "0.23",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-26T23:59:59.999",
+          "start": "2026-09-26T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 27.0,
+        "cost": {
+          "amount": "1.78",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-27T23:59:59.999",
+          "start": "2026-09-27T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 29.49,
+        "cost": {
+          "amount": "1.95",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-28T23:59:59.999",
+          "start": "2026-09-28T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 8.70,
+        "cost": {
+          "amount": "0.58",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-29T23:59:59.999",
+          "start": "2026-09-29T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      },
+      {
+        "consumption": 12.96,
+        "cost": {
+          "amount": "0.86",
+          "currencyUnit": "GBP"
+        },
+        "hasHhData": false,
+        "interval": {
+          "end": "2026-09-30T23:59:59.999",
+          "start": "2026-09-30T00:00:00.000"
+        },
+        "rates": {
+          "anytime": 0.0661,
+          "standing": 0.2032
+        }
+      }
+    ],
+    "next": true,
+    "prev": true,
+    "prevYear": true
+  }
+}
